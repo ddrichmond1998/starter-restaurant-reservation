@@ -6,6 +6,7 @@
 
 require('dotenv').config();
 const path = require("path");
+console.log(path);
 
 const {
   DATABASE_URL = "postgresql://postgres@localhost/postgres",
