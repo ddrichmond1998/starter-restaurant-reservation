@@ -8,13 +8,8 @@
  const controller = require("./tables.controller");
  
  router
-   .route("/:table_id/seat")
-   .put(controller.assignReservationId)
-   .delete(controller.deleteReservationId);
- 
- router
    .route("/")
-   .get(controller.list)
+   // .get(controller.list)
    .post(controller.create);
  
  module.exports = router;
