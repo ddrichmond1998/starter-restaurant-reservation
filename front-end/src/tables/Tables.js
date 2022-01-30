@@ -3,9 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import NewTable from "./new/NewTable";
 import NotFound from "../layout/NotFound";
 
-/**
- * Routes for all table based actions- currently can only create new tables
- */
+//Route for table-related actions
+
 
 function Tables() {
   return (

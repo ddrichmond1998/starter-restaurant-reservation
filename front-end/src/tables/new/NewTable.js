@@ -3,9 +3,8 @@ import { useHistory } from "react-router-dom";
 import { postTable } from "../../utils/api";
 import ErrorAlert from "../../layout/ErrorAlert";
 
-/**
- * A controlled form used for creating a new table
- */
+//Form- creates a new table
+
 
 function NewTable() {
   const [tablesError, setTablesError] = useState(null);

@@ -1,22 +1,49 @@
 const knex = require("../db/connection");
 
-// returns reservation for a specified date
-function list(date) {
-  return knex("reservations")
-    .select("*")
-    .where({ reservation_date: date })
-    .orderBy("reservation_time");
+// returns all tables
+function list() {
+  return knex("tables").select("*").orderBy("table_name");
 }
 
-// posts new reso and return it
-function create(reservation) {
-  return knex("reservations")
-    .insert(reservation)
+// posts new table
+function create(table) {
+  return knex("tables")
+    .insert(table)
     .returning("*")
-    .then((newReservations) => newReservations[0]);
+    .then((newTables) => newTables[0]);
+}
+
+
+function read(id) {
+  return knex("tables")
+    .select("*")
+    .where({ table_id: id })
+    .then((result) => result[0]);
+}
+
+// updates assigned table and reservation status
+async function update(updatedTable, resId, updatedResStatus) {
+  try {
+    await knex.transaction(async (trx) => {
+      const returnedUpdatedTable = await trx("tables")
+        .where({ table_id: updatedTable.table_id })
+        .update(updatedTable, "*")
+        .then((updatedTables) => updatedTables[0]);
+
+      const returnedUpdatedReservation = await trx("reservations")
+        .where({ reservation_id: resId })
+        .update({ status: updatedResStatus }, "*")
+        .then((updatedReservations) => updatedReservations[0]);
+    });
+  } catch (error) {
+    
+    console.error(error);
+  }
 }
 
 module.exports = {
-  list,
   create,
+  read,
+  update,
+  list,
 };

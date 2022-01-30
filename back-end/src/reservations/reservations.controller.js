@@ -3,7 +3,6 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasProperties = require("../errors/hasProperties");
 
 ///Validation
-
 async function reservationExists(req, res, next) {
   const { reservationId } = req.params;
   const reservation = await service.read(reservationId);
@@ -69,7 +68,6 @@ function dateFormatIsValid(dateString) {
 
 function dateNotInPast(dateString, timeString) {
   const now = new Date();
-  // creating a date object using a string like:  '2021-10-08T01:21:00'
   const reservationDate = new Date(dateString + "T" + timeString);
   return reservationDate >= now;
 }
@@ -193,10 +191,9 @@ function hasValidQuery(req, res, next) {
   next();
 }
 
-//! Validation ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//* CRUD vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+// Validation 
 
-// List handler for reservation resources
+// List handler- reservation resources
 async function list(req, res) {
   const { mobile_number, date } = req.query;
   const reservations = await (mobile_number
@@ -205,20 +202,19 @@ async function list(req, res) {
   res.json({ data: reservations });
 }
 
-// Read handler for reservation resources
-//* res.locals.reservation is being set from reservationExists()
+// Read handler- reservation resources
 async function read(req, res) {
   const { reservation } = res.locals;
   res.json({ data: reservation });
 }
 
-// Create handler for a new reservation
+// Create handler- new reservation
 async function create(req, res) {
   const reservation = await service.create(req.body.data);
   res.status(201).json({ data: reservation });
 }
 
-// Update handler for reservation status
+// Update handler- reservation status
 async function updateStatus(req, res) {
   const newStatus = req.body.data.status;
   const { reservation_id } = res.locals.reservation;
@@ -226,7 +222,7 @@ async function updateStatus(req, res) {
   res.status(200).json({ data: { status: newStatus } });
 }
 
-// Update handler for reservation status
+// Update handler- reservation status
 async function update(req, res) {
   const { reservation_id } = res.locals.reservation;
   const newReservationDetails = req.body.data;

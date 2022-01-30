@@ -5,3 +5,6 @@ exports.seed = function (knex) {
     .raw("TRUNCATE TABLE tables RESTART IDENTITY CASCADE")
     .then(() => knex("tables").insert(tables));
 };
+
+
+
