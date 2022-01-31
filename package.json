@@ -2,11 +2,13 @@
   "name": "starter-restaurant-reservation",
   "version": "1.0.0",
   "description": "Restaurant Reservation System Front End",
-  "private": true,
+  "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ddrichmond1998/starter-restaurant-reservation"
+    "url": "https://github.com/ddrichmond1998/starter-restaurant-reservation",
+    "directory": "/front-end"
   },
+  "private": true,
   "scripts": {
     "build": "npm -prefix front-end run build",
     "preinstall": "cd ./back-end && npm install",
