@@ -1,11 +1,11 @@
 {
   "name": "starter-restaurant-reservation",
   "version": "1.0.0",
-  "description": "Starter project restaurant reservation system",
+  "description": "Restaurant Reservation System Front End",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Thinkful-Ed/starter-restaurant-reservation"
+    "url": "https://github.com/ddrichmond1998/starter-restaurant-reservation"
   },
   "scripts": {
     "build": "npm -prefix front-end run build",
