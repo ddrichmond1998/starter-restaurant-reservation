@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "node src/server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "start:dev": "nodemon src/server.js",
     "knex": "knex",
     "test": "npx cross-env LOG_LEVEL=warn jest --runInBand --detectOpenHandles --forceExit",
