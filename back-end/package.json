@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ddrichmond1998/starter-restaurant-reservation",
-    "directory": "/tree/main/back-end"
+    "directory": "/back-end"
   },
   "scripts": {
     "start": "node src/server.js",
