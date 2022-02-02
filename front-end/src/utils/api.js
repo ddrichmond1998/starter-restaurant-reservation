@@ -9,7 +9,6 @@
  const API_BASE_URL = "https://restaurant-reso-backend.herokuapp.com"
  //process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
- //  process.env.REACT_APP_API_BASE_URL || "https://restrez-back-end.herokuapp.com";
  
  /**
   * Defines the default headers for these functions to work with `json-server`
