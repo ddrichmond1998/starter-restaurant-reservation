@@ -1,6 +1,5 @@
 const knex = require("../db/connection");
 
-// returns active/unfulfilled reservations for specified date
 function searchByDate(date) {
   return knex("reservations")
     .select("*")
@@ -9,7 +8,6 @@ function searchByDate(date) {
     .orderBy("reservation_time");
 }
 
-//phone number search
 function searchByPhone(mobile_number) {
   return knex("reservations")
     .whereRaw(
@@ -19,7 +17,6 @@ function searchByPhone(mobile_number) {
     .orderBy("reservation_date");
 }
 
-// returns reservation by id
 function read(id) {
   return knex("reservations")
     .select("*")
@@ -27,7 +24,6 @@ function read(id) {
     .then((result) => result[0]);
 }
 
-// posts & returns new reservation 
 function create(reservation) {
   return knex("reservations")
     .insert(reservation)
@@ -35,12 +31,10 @@ function create(reservation) {
     .then((result) => result[0]);
 }
 
-// updates reservation status
 function updateStatus(reservation_id, status) {
   return knex("reservations").where({ reservation_id }).update({ status }, "*");
 }
 
-// updates reservation
 function update(reservation_id, updatedReservation) {
   return knex("reservations")
     .where({ reservation_id })

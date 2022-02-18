@@ -2,7 +2,6 @@ const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasProperties = require("../errors/hasProperties");
 
-///Validation
 async function reservationExists(req, res, next) {
   const { reservationId } = req.params;
   const reservation = await service.read(reservationId);
@@ -65,11 +64,12 @@ function timeIsValid(timeString) {
 function dateFormatIsValid(dateString) {
   return dateString.match(dateFormat)?.[0];
 }
-
 function dateNotInPast(dateString, timeString) {
-  const now = new Date();
-  const reservationDate = new Date(dateString + "T" + timeString);
-  return reservationDate >= now;
+  let now = new Date(); // This gets the machine's local time, but it's displayed as UTC.
+  let offset = now.getTimezoneOffset(); // This is the machine's timezone offset, in minutes.
+  let localTime = now.getTime() + (offset * 60000); // Date() returns milliseconds, so multiply by 60000 to get it in minutes. Add because UTC time is ahead.
+  
+  return localTime >= now;
 }
 
 function timeDuringBizHours(timeString) {
@@ -191,9 +191,6 @@ function hasValidQuery(req, res, next) {
   next();
 }
 
-// Validation 
-
-// List handler- reservation resources
 async function list(req, res) {
   const { mobile_number, date } = req.query;
   const reservations = await (mobile_number
@@ -202,19 +199,16 @@ async function list(req, res) {
   res.json({ data: reservations });
 }
 
-// Read handler- reservation resources
 async function read(req, res) {
   const { reservation } = res.locals;
   res.json({ data: reservation });
 }
 
-// Create handler- new reservation
 async function create(req, res) {
   const reservation = await service.create(req.body.data);
   res.status(201).json({ data: reservation });
 }
 
-// Update handler- reservation status
 async function updateStatus(req, res) {
   const newStatus = req.body.data.status;
   const { reservation_id } = res.locals.reservation;
@@ -222,7 +216,6 @@ async function updateStatus(req, res) {
   res.status(200).json({ data: { status: newStatus } });
 }
 
-// Update handler- reservation status
 async function update(req, res) {
   const { reservation_id } = res.locals.reservation;
   const newReservationDetails = req.body.data;
@@ -237,8 +230,6 @@ async function update(req, res) {
   );
   res.status(200).json({ data: updatedReservation });
 }
-
-//CRUD
 
 module.exports = {
   create: [
